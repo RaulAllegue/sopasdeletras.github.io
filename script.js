@@ -73,9 +73,11 @@ const Consejos = ['CONSEJO: Pulse en la palabra para resetear la busqueda', 'CON
 
 function Rnd(min, max){ return Math.floor(Math.random()*(max-min++))+min--; }
 
-setTimeout(()=>{
-    ttl.textContent = Consejos[Math.floor(Math.random()*Consejos.length)];
-}, 3000);
+    setTimeout(()=>{
+        if(timeleft>60){
+            ttl.textContent = Consejos[Math.floor(Math.random()*Consejos.length)];
+        }
+    }, 3000);
 
 let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "Y", "Z"];
 const wordsDict = ['CABER', 'LATIR', 'SEPIA', 'COFIA', 'PARTE', 'ACABA', 'AGITA', 'AFILO', 'AGRIO', 'BIDON', 'BICIS', 'BOCAS', 'CAMPO', 'CAMAS', 'CANTA', 'CANSO', 'CHICO', 'CISNE', 'CREER', 'CRUCE', 'DICTA', 'DEUDA', 'DIANA', 'DUROS', 'EDITA', 'EBRIO', 'ESPIA', 'FALDA', 'FARDO', 'FRESA', 'GALLO', 'GANAS', 'GRABA', 'FUNDA', 'HIERE', 'HILAR', 'HOYOS', 'HUECO', 'TIRAR', 'INFLA', 'JABON', 'JALEA', 'ANTES', 'LICOR', 'MATAR', 'MUECA', 'NADAR', 'NOVIA', 'NIETA', 'OBESO', 'OSTRA', 'OVALO', 'PARAR', 'PERLA', 'PESCA', 'RABIA', 'RECTO', 'RENTA', 'SABER', 'SALSA', 'SIENA', 'SOLAS', 'TORTA', 'TAPAS', 'TEMOR', 'UTERO', 'USTED', 'PELOS', 'MENOS'];
@@ -98,8 +100,6 @@ let timeLeft = 60;
 let AllTds = [];
 let Valoracion = 'F';
 let Puntuaciones = [];
-console.log(Coords)
-
 
 
 function Start(){
@@ -135,7 +135,6 @@ function Start(){
                 WordToFind.textContent = 'Puntuación: ' + score;
                 Puntuaciones.push(score);
                 score = 0;
-                console.log(Puntuaciones);
             }
             if (timeLeft <= 10){
                 document.getElementById('title').style.color = 'red';
@@ -154,15 +153,12 @@ Coords.forEach((Row) => {
                     td.style.transition = '0.25s';
                     if (AllTds.includes(td)){ 
                         SearchedWord += td.textContent;
-                        console.log(SearchedWord);
                     }
                     else { 
                         td.style.backgroundColor = 'red';
                         td.style.transition = '0.25s'; 
                         score -= 50;
                         WordToFind.textContent = word;
-
-                        if (ModoTablero == 'Normal') alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "Y", "Z"];
                         SearchedWord = ''; 
                         timeLeft -= 5;
                     } 
@@ -173,7 +169,6 @@ Coords.forEach((Row) => {
                         ttl.textContent = Felicitaciones[Math.floor(Math.random()*Felicitaciones.length)];
                         timeLeft += 5;
                     }
-                    console.log('x');
                     if(SearchedWord.length != 0) WordToFind.textContent = SearchedWord;
                     if (SearchedWord.length > 5) {WordToFind.textContent = word; score -= 50; SearchedWord = '';}
                 }
