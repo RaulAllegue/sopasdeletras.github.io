@@ -74,7 +74,7 @@ const Consejos = ['CONSEJO: Pulse en la palabra para resetear la busqueda', 'CON
 function Rnd(min, max){ return Math.floor(Math.random()*(max-min++))+min--; }
 
     setTimeout(()=>{
-        if(timeleft>60){
+        if(started == false){
             ttl.textContent = Consejos[Math.floor(Math.random()*Consejos.length)];
         }
     }, 3000);
